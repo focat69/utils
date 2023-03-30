@@ -8,7 +8,7 @@ _/ ____\____ |  |
            \/      
 -- = focat's notification lib = --
 
-[[ How To Use - Snippet ]]
+[ How To Use - Snippet ]
 local fnl = loadstring(game:HttpGetAsync 'https://raw.githubusercontent.com/Code1Tech/utils/main/notification.lua')()
 
 fnl:MakeNotification({
@@ -16,7 +16,7 @@ fnl:MakeNotification({
 	Text = "Your Text Here",
 	Duration = 5 -- Your Duration (in seconds)
 })
-[[ ez ]]
+[ ez ]
 
 ]]--
 
