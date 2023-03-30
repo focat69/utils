@@ -1,6 +1,4 @@
-# utils
-LuaU Utility Scripts
----
+# LuaU Utilty Scripts
 ## How to use the *Notification Library*
 ```lua
 -- [[ THIS IS A SNIPPET ]] --
