@@ -30,9 +30,9 @@ function notify(title, text, duration)
   duration = duration or 5
   
   fnl:MakeNotification({
-    Title = Title,
-    Text = Text,
-    Duration = Duration
+    Title = title,
+    Text = text,
+    Duration = duration
   })
 end
 
