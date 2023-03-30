@@ -8,7 +8,7 @@ _/ ____\____ |  |
            \/      
 -- = focat's notification lib = --
 
-~ dont skid lmfao ~
+~ dont skid lmfao!!! ~
 
 [ How To Use - Snippet ]
 local fnl = loadstring(game:HttpGetAsync 'https://raw.githubusercontent.com/Code1Tech/utils/main/notification.lua')()
