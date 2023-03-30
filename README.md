@@ -34,4 +34,8 @@ function notify(title, text, duration)
     Text = Text,
     Duration = Duration
   })
+end
+
+-- Use the func
+notify("Test!", "Testing 123", 3)
 ```
