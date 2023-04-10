@@ -24,6 +24,8 @@ fnl:MakeNotification({
 ]]--
 protect = (syn.protect_gui or gethui) --// Protect GUI/Instance Function \\--
 
+local lib = {}
+
 local Converted = {
 	["_focat's notification lib"] = Instance.new("ScreenGui");
 	["_Notifications"] = Instance.new("Frame");
@@ -34,7 +36,6 @@ local Converted = {
 	["_Icon"] = Instance.new("ImageButton");
 	["_UIStroke"] = Instance.new("UIStroke");
 	["_UIListLayout"] = Instance.new("UIListLayout");
-	["_Library"] = Instance.new("ModuleScript");
 }
 
 -- Properties:
@@ -126,111 +127,97 @@ Converted["_UIListLayout"].SortOrder = Enum.SortOrder.LayoutOrder
 Converted["_UIListLayout"].VerticalAlignment = Enum.VerticalAlignment.Bottom
 Converted["_UIListLayout"].Parent = Converted["_Notifications"]
 
--- Fake Module Scripts:
+baseNotif = Converted["_Template"]
 
-local fake_module_scripts = {}
+function tween(go, t, dir)
+    dir = dir or "in"
+    local obj = go
 
-do -- Fake Module: StarterGui.focat's notification lib.Notifications.Library
-    local script = Instance.new("ModuleScript")
-    script.Name = "Library"
-    script.Parent = Converted["_Notifications"]
-    local function module_script()
-		local lib = {}
-		
-		baseNotif = Converted["_Template"]
-		
-		function tween(go, t, dir)
-			dir = dir or "in"
-			local obj = go
-		
-			local startTransparency = (dir == "in") and 1 or 0
-			local endTransparency = (dir == "in") and 0 or 1
-		
-			obj.BackgroundTransparency = startTransparency
-		
-			local tweenInfo = TweenInfo.new(t, Enum.EasingStyle.Quint, Enum.EasingDirection.Out, 0, false, 0)
-		
-			local tween = game:GetService("TweenService"):Create(obj, tweenInfo, {
-				BackgroundTransparency = endTransparency
-			})
-			tween:Play()
-			
-			if dir == "out" then
-				for _, e in pairs(obj:GetDescendants()) do
-					if e:IsA("GuiObject") then
-						if e:IsA("TextLabel") then
-							local texttween = game:GetService("TweenService"):Create(e, tweenInfo, {
-								TextTransparency = endTransparency
-							})
-							texttween:Play()
-						elseif e:IsA("ImageLabel") or e:IsA("ImageButton") then
-							local imgt = game:GetService("TweenService"):Create(e, tweenInfo, {
-								ImageTransparency = endTransparency
-							})
-							imgt:Play()
-						elseif e:IsA("UIStroke") then
-							local st = game:GetService("TweenService"):Create(e, tweenInfo, {
-								Transparency = endTransparency
-							})
-							st:Play()
-						end
-					end
-				end
-			end
-		end
-		
-		function lib:MakeNotification(notif_table:table)
-			local nt = notif_table or {
-				Title = "focat's notification lib",
-				Text = "This is a test notification.",
-				Duration = 5
-			}
-		
-			local title = nt.Title
-			local text = nt.Text
-			local dur = nt.Duration
-		
-			local newNotif = baseNotif:Clone()
-			newNotif.Parent = Converted["_Notifications"]
-			newNotif.Title.Text = title
-			newNotif.Description.Text = text
-			newNotif.Visible = true
-			newNotif.Name = "CiriusNotification"
-		
-			local holder = Converted["_Notifications"]
-			local notifications = holder:GetChildren()
-			local numNotifications = #notifications
-		
-			local layout = Converted["_UIListLayout"]
-			local layoutOrder = layout.Padding.Offset
-		
-			for i, notification in ipairs(notifications) do
-				if notification ~= baseNotif and
-					notification ~= newNotif and
-					notification ~= layout
-				then
-					if numNotifications == 1 then
-						layoutOrder = layoutOrder - 1
-					else
-						layoutOrder = notification.LayoutOrder + 1
-					end
-					tween(notification, 0.25)
-				end
-			end
-		
-			newNotif.LayoutOrder = layoutOrder
-		
-			tween(newNotif, 0.25, "in")
-		
-			spawn(function()
-				wait(dur)
-				tween(newNotif, 0.25, "out")
-				wait(0.25)
-				newNotif:Destroy()
-			end)
-		end
-		
-		return lib
+    local startTransparency = (dir == "in") and 1 or 0
+    local endTransparency = (dir == "in") and 0 or 1
+
+    obj.BackgroundTransparency = startTransparency
+
+    local tweenInfo = TweenInfo.new(t, Enum.EasingStyle.Quint, Enum.EasingDirection.Out, 0, false, 0)
+
+    local tween = game:GetService("TweenService"):Create(obj, tweenInfo, {
+        BackgroundTransparency = endTransparency
+    })
+    tween:Play()
+
+    if dir == "out" then
+        for _, e in pairs(obj:GetDescendants()) do
+            if e:IsA("GuiObject") then
+                if e:IsA("TextLabel") then
+                    local texttween = game:GetService("TweenService"):Create(e, tweenInfo, {
+                        TextTransparency = endTransparency
+                    })
+                    texttween:Play()
+                elseif e:IsA("ImageLabel") or e:IsA("ImageButton") then
+                    local imgt = game:GetService("TweenService"):Create(e, tweenInfo, {
+                        ImageTransparency = endTransparency
+                    })
+                    imgt:Play()
+                elseif e:IsA("UIStroke") then
+                    local st = game:GetService("TweenService"):Create(e, tweenInfo, {
+                        Transparency = endTransparency
+                    })
+                    st:Play()
+                end
+            end
+        end
     end
-    fake_module_scripts[script] = module_script
 end
+
+function lib:MakeNotification(notif_table:table)
+	local nt = notif_table or {
+		Title = "focat's notification lib",
+		Text = "This is a test notification.",
+		Duration = 5
+	}
+
+	local title = nt.Title
+	local text = nt.Text
+	local dur = nt.Duration
+
+	local newNotif = baseNotif:Clone()
+	newNotif.Parent = Converted["_Notifications"]
+	newNotif.Title.Text = title
+	newNotif.Description.Text = text
+	newNotif.Visible = true
+	newNotif.Name = "CiriusNotification"
+
+	local holder = Converted["_Notifications"]
+	local notifications = holder:GetChildren()
+	local numNotifications = #notifications
+
+	local layout = Converted["_UIListLayout"]
+	local layoutOrder = layout.Padding.Offset
+
+	for i, notification in ipairs(notifications) do
+		if notification ~= baseNotif and
+			notification ~= newNotif and
+			notification ~= layout
+		then
+			if numNotifications == 1 then
+				layoutOrder = layoutOrder - 1
+			else
+				layoutOrder = notification.LayoutOrder + 1
+			end
+			tween(notification, 0.25)
+		end
+	end
+
+	newNotif.LayoutOrder = layoutOrder
+
+	tween(newNotif, 0.25, "in")
+
+	spawn(function()
+		wait(dur)
+		tween(newNotif, 0.25, "out")
+		wait(0.25)
+		newNotif:Destroy()
+	end)
+end
+
+return lib
