@@ -22,7 +22,7 @@ fnl:MakeNotification({
 [ ez ]
 
 ]]--
-protect = (syn.protect_gui or gethui) --// Protect GUI/Instance Function \\--
+--protect = (syn.protect_gui or gethui) --// Protect GUI/Instance Function \\-- -- disabled cs fluxus retar
 
 local lib = {}
 
