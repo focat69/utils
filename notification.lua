@@ -44,7 +44,7 @@ Converted["_focat's notification lib"].DisplayOrder = 999999999
 Converted["_focat's notification lib"].ResetOnSpawn = false
 Converted["_focat's notification lib"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Converted["_focat's notification lib"].Name = "focat's notification lib"
-protect(Converted["_focat's notification lib"])
+--protect(Converted["_focat's notification lib"])
 Converted["_focat's notification lib"].Parent = game:GetService("CoreGui")
 
 Converted["_Notifications"].AnchorPoint = Vector2.new(1, 1)
