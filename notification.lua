@@ -68,7 +68,7 @@ end
 -- Properties:
 
 Converted["_focat's notification lib"].DisplayOrder = 999999999
-Converted["_focat's notification lib"].ResetOnSpawn = false
+Converted["_focat's notification lib"].ResetOntask.spawn = false
 Converted["_focat's notification lib"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Converted["_focat's notification lib"].Name = RandomString(32)
 HideUi(Converted["_focat's notification lib"])
@@ -239,10 +239,10 @@ function lib:MakeNotification(notif_table:table)
 
 	tween(newNotif, 0.25, "in")
 
-	spawn(function()
-		wait(dur)
+	task.spawn(function()
+		task.wait(dur)
 		tween(newNotif, 0.25, "out")
-		wait(0.25)
+		task.wait(0.25)
 		newNotif:Destroy()
 	end)
 end
