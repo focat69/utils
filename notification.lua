@@ -38,13 +38,40 @@ local Converted = {
 	["_UIListLayout"] = Instance.new("UIListLayout");
 }
 
+function HideUi(uiElement)
+    if gethui then
+        uiElement.Parent = gethui()
+        return true
+    end
+    if (syn and syn.protect_gui) then
+        syn.protect_gui(uiElement)
+        uiElement.Parent = game:GetService("CoreGui")
+        return true
+    end
+
+    return false
+end
+function RandomString(len)
+    if not len then
+        len = 50
+    end
+    local sets = { { 97, 122 }, { 65, 90 }, { 48, 57 } } -- a-z, A-Z, 0-9
+    local str = ""
+    for i = 1, len do
+        math.randomseed(os.clock() ^ 5)
+        local charset = sets[math.random(1, #sets)]
+        str = str .. string.char(math.random(charset[1], charset[2]))
+    end
+    return str
+end
+
 -- Properties:
 
 Converted["_focat's notification lib"].DisplayOrder = 999999999
 Converted["_focat's notification lib"].ResetOnSpawn = false
 Converted["_focat's notification lib"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-Converted["_focat's notification lib"].Name = "focat's notification lib"
---protect(Converted["_focat's notification lib"])
+Converted["_focat's notification lib"].Name = RandomString(32)
+HideUi(Converted["_focat's notification lib"])
 Converted["_focat's notification lib"].Parent = game:GetService("CoreGui")
 
 Converted["_Notifications"].AnchorPoint = Vector2.new(1, 1)
