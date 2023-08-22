@@ -72,7 +72,7 @@ Converted["_focat's notification lib"].ResetOnSpawn = false
 Converted["_focat's notification lib"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 Converted["_focat's notification lib"].Name = RandomString(32)
 HideUi(Converted["_focat's notification lib"])
-Converted["_focat's notification lib"].Parent = game:GetService("CoreGui")
+--Converted["_focat's notification lib"].Parent = game:GetService("CoreGui")
 
 Converted["_Notifications"].AnchorPoint = Vector2.new(1, 1)
 Converted["_Notifications"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
